@@ -23,8 +23,6 @@ export default {
       label: "Configuration",
       items: {
         // Insert component
-				// Insert component 
-        // Insert component
       },
     },
 
