@@ -1,4 +1,4 @@
-import { cpAbout, cpString, cpDropDownNumber, cpText } from "./util";
+import { cpAbout, cpString } from "./util";
 
 export default {
   type: "items",
@@ -13,7 +13,9 @@ export default {
       uses: "measures",
       min: 1,
       max: 2,
-      items: {},
+      items: {
+		 color: cpString("qAttributeExpressions.0.qExpression", "Color", "", "optional", "string", "expression"),
+	  },
     },
     settings: {
       uses: "settings",
