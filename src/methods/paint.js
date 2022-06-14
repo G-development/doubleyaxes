@@ -93,6 +93,17 @@ export default function paint($element, layout) {
     .attr("transform", "translate( " + width + ", 0 )")
     .call(d3.axisRight(y1));
 
+  /* GRID */
+  if (allProps.grid) {
+    const makeYGrid = () => d3.axisLeft(y0).ticks(5);
+    let gridTickSize = allProps.legend ? -width + margin.right : -width;
+
+    svg
+      .append("g")
+      .attr("class", "grid")
+      .call(makeYGrid().tickSize(gridTickSize).tickFormat(""));
+  }
+
   // Manage colors
   var colors = [
     mat[0][1].qAttrExps.qValues[0].qText,
@@ -145,7 +156,7 @@ export default function paint($element, layout) {
   });
 
   /* LEGEND */
-  if (allProps.legendSwitch) {
+  if (allProps.legend) {
     function rescale(legendWidth) {
       // Adjust X range
       x.range([0, width - legendWidth]);
