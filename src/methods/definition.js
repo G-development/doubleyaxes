@@ -14,7 +14,8 @@ export default {
       min: 1,
       max: 2,
       items: {
-		 color: cpString("qAttributeExpressions.0.qExpression", "Color", "", "optional", "string", "expression"),
+        color: cpString("qAttributeExpressions.0.qExpression", "Color", "", "optional", "string", "expression"),
+        moreInfo: cpString("qAttributeExpressions.1.qExpression", "More info", "", "optional", "string", "expression")
 	    },
     },
     settings: {
