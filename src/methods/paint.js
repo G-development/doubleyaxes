@@ -11,7 +11,7 @@ import "tippy.js/dist/svg-arrow.css";
 var qlik = window.require("qlik");
 
 export default function paint($element, layout) {
-  console.log("Layout", layout);
+  //   console.log("Layout", layout);
 
   /* CREATE DATA */
   var hc = layout.qHyperCube,
@@ -23,8 +23,14 @@ export default function paint($element, layout) {
   const data = mat.map((item) => {
     let temp = {};
     temp["group"] = item[0].qText;
-    temp[measures[0]] = item[1].qNum;
-    temp[measures[1]] = item[2].qNum;
+    temp[measures[0]] = {
+      val: item[1].qNum,
+      moreInfo: item[1].qAttrExps.qValues[1].qText,
+    };
+    temp[measures[1]] = {
+      val: item[2].qNum,
+      moreInfo: item[2].qAttrExps.qValues[1].qText,
+    };
 
     sumMeas0.push(item[1].qNum);
     sumMeas1.push(item[2].qNum);
@@ -45,7 +51,7 @@ export default function paint($element, layout) {
   var margin = {
       top: 10,
       right: 35,
-      bottom: 15,
+      bottom: 10,
       left: 35,
     },
     width = containerWidth - margin.left - margin.right,
@@ -128,7 +134,7 @@ export default function paint($element, layout) {
     .selectAll("rect")
     .data((d) =>
       measures.map((key) => {
-        return { key: key, value: d[key] };
+        return { key: key, value: d[key].val, tooltip: d[key].moreInfo };
       })
     )
     .enter()
@@ -149,10 +155,14 @@ export default function paint($element, layout) {
   var bars = svg
     .selectAll(".bars > g > rect")
     .attr("data-tippy-content", (d, i) => {
-      return `${d.key}: ${d.value}`;
+      //   return`${d.key}: ${d.value}`;
+      return `<b> ${d.key} <b> <br>
+        ${d.value} <br> 
+        ${d.tooltip != undefined ? d.tooltip : ""}`;
     });
   tippy(bars.nodes(), {
     arrow: roundArrow,
+    allowHTML: true,
   });
 
   /* LEGEND */
