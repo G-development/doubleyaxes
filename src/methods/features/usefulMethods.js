@@ -10,8 +10,8 @@ export const createSVGElem = (elementId, width, height, margin) => {
   var svg = extSvg
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-    .attr("class", "BCT")
-    .attr("id", "BCT" + elementId);
+    .attr("class", "DYA")
+    .attr("id", "DYA_" + elementId);
 
   return svg;
 };
