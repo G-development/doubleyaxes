@@ -31,7 +31,7 @@ export default function paint($element, layout) {
 
   /* MANAGE PROPS */
   const allProps = createProps(layout);
-  //   console.log("allProps", allProps);
+  // console.log("allProps", allProps);
 
   /* INITIAL STUFFS */
   const elementId = "DYA_" + layout.qInfo.qId,
@@ -56,12 +56,12 @@ export default function paint($element, layout) {
       .scaleBand()
       .domain(groups)
       .range([0, width]) //margin.left, width - margin.right
-      .padding([0.2]),
+      .padding(allProps.paddingGroup),
     xSubgroup = d3
       .scaleBand()
       .domain(measures)
       .range([0, x.bandwidth()])
-      .padding([0.05]);
+      .padding(allProps.paddingBars);
   var y0 = d3
       .scaleLinear()
       .rangeRound([height - margin.bottom, margin.top])

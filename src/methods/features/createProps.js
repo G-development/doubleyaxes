@@ -4,11 +4,11 @@ export const createProps = (layout) => {
     // Padding
     paddingGroup:
       dya.paddingGroup && dya.paddingGroup != null && dya.paddingGroup != ""
-        ? parseInt(dya.paddingGroup)
+        ? parseFloat(dya.paddingGroup)
         : 0.2,
     paddingBars:
       dya.paddingBars && dya.paddingBars != null && dya.paddingBars != ""
-        ? parseInt(dya.paddingBars)
+        ? parseFloat(dya.paddingBars)
         : 0.05,
     // Legend
     legendSwitch:
