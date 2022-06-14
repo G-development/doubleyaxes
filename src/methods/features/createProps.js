@@ -10,8 +10,13 @@ export const createProps = (layout) => {
       dya.paddingBars && dya.paddingBars != null && dya.paddingBars != ""
         ? parseFloat(dya.paddingBars)
         : 0.05,
+    // Grid
+    grid:
+      dya.gridSwitch && dya.gridSwitch != null && dya.gridSwitch != ""
+        ? dya.gridSwitch
+        : false,
     // Legend
-    legendSwitch:
+    legend:
       dya.legendSwitch && dya.legendSwitch != null && dya.legendSwitch != ""
         ? dya.legendSwitch
         : false,

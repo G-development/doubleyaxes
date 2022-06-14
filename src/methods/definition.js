@@ -15,7 +15,7 @@ export default {
       max: 2,
       items: {
 		 color: cpString("qAttributeExpressions.0.qExpression", "Color", "", "optional", "string", "expression"),
-	  },
+	    },
     },
     settings: {
       uses: "settings",
@@ -25,21 +25,22 @@ export default {
       label: "Configuration",
       items: {
         paddingGroup: cpString("DYA.paddingGroup", "Padding between groups (0 to 1)", "", "optional", "number", "expression"),
-		paddingBars: cpString("DYA.paddingBars", "Padding between bars (0 to 1)", "", "optional", "number", "expression"),
+        paddingBars: cpString("DYA.paddingBars", "Padding between bars (0 to 1)", "", "optional", "number", "expression"),
+        gridSwitch: cpSwitch("DYA.gridSwitch", "Show grid", "Yes", "No", false),
 
-		allSettings: {
-			uses: "addons",
-			items: {
-				// Legend
-				legendSettings: {
-					type: "items",
-					label: "Legend settings",
-					items: {
-						legendSwitch: cpSwitch("DYA.legendSwitch", "Show legend", "Yes", "No", false),
-					}
-				},
-			}
-		}
+        allSettings: {
+          uses: "addons",
+          items: {
+            // Legend
+            legendSettings: {
+              type: "items",
+              label: "Legend settings",
+              items: {
+                legendSwitch: cpSwitch("DYA.legendSwitch", "Show legend", "Yes", "No", false),
+              }
+            },
+          }
+        }
       },
     },
 
