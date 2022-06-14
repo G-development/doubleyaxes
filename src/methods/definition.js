@@ -1,4 +1,4 @@
-import { cpAbout, cpString } from "./util";
+import { cpAbout, cpString, cpSwitch} from "./util";
 
 export default {
   type: "items",
@@ -24,7 +24,22 @@ export default {
       type: "items",
       label: "Configuration",
       items: {
-        // Insert component
+        paddingGroup: cpString("DYA.paddingGroup", "Padding between groups (0 to 1)", "", "optional", "number", "expression"),
+		paddingBars: cpString("DYA.paddingBars", "Padding between bars (0 to 1)", "", "optional", "number", "expression"),
+
+		allSettings: {
+			uses: "addons",
+			items: {
+				// Legend
+				legendSettings: {
+					type: "items",
+					label: "Legend settings",
+					items: {
+						legendSwitch: cpSwitch("DYA.legendSwitch", "Show legend", "Yes", "No", false),
+					}
+				},
+			}
+		}
       },
     },
 
