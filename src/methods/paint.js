@@ -1,8 +1,12 @@
 import * as d3 from "d3";
+import tippy, { roundArrow } from "tippy.js";
+
 import { createProps } from "./features/createProps";
 import { createSVGElem } from "./features/usefulMethods";
 
 import "./style.css";
+import "tippy.js/dist/tippy.css";
+import "tippy.js/dist/svg-arrow.css";
 
 var qlik = window.require("qlik");
 
@@ -129,6 +133,16 @@ export default function paint($element, layout) {
         (d.key == measures[0] ? y0(d.value) : y1(d.value))
     )
     .attr("fill", (d) => color(d.key));
+
+  /* TIPPY.JS */
+  var bars = svg
+    .selectAll(".bars > g > rect")
+    .attr("data-tippy-content", (d, i) => {
+      return `${d.key}: ${d.value}`;
+    });
+  tippy(bars.nodes(), {
+    arrow: roundArrow,
+  });
 
   /* LEGEND */
   if (allProps.legendSwitch) {
