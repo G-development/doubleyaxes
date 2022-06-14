@@ -31,7 +31,7 @@ export default function paint($element, layout) {
 
   /* MANAGE PROPS */
   const allProps = createProps(layout);
-//   console.log("allProps", allProps);
+  //   console.log("allProps", allProps);
 
   /* INITIAL STUFFS */
   const elementId = "DYA_" + layout.qInfo.qId,
@@ -129,4 +129,67 @@ export default function paint($element, layout) {
         (d.key == measures[0] ? y0(d.value) : y1(d.value))
     )
     .attr("fill", (d) => color(d.key));
+
+  /* LEGEND */
+  if (allProps.legendSwitch) {
+    function rescale(legendWidth) {
+      // Adjust X range
+      x.range([0, width - legendWidth]);
+      xSubgroup.range([0, x.bandwidth()]);
+
+      // Rescale axis
+      svg.select("#" + elementId + " g.x").call(d3.axisBottom(x));
+      svg
+        .select("#" + elementId + " g.y1")
+        .attr("transform", "translate( " + (width - legendWidth) + ", 0 )");
+      // Rescale bars
+      svg
+        .selectAll("#" + elementId + " g.bars > g")
+        .attr("transform", (d) => "translate(" + x(d.group) + ",0)");
+      svg
+        .selectAll("#" + elementId + " g.bars > g > rect")
+        .attr("width", xSubgroup.bandwidth())
+        .attr("x", (d) => xSubgroup(d.key));
+
+      d3.selectAll("#" + elementId + " .legend > circle").attr(
+        "cx",
+        width + margin.right - legendWidth
+      );
+
+      d3.selectAll("#" + elementId + " .legend > text").attr(
+        "x",
+        width + margin.right - legendWidth + 8
+      );
+    }
+
+    var legend = svg.append("g").attr("class", "legend");
+    // Add one dot in the legend for each name.
+    legend
+      .selectAll("mydots")
+      .data(colors)
+      .enter()
+      .append("circle")
+      .attr("cx", width - 40)
+      .attr("cy", (d, i) => 0 + i * 20) // 100 is where the first dot appears. 20 is the distance between dots
+      .attr("r", 7)
+      .style("fill", (d) => d);
+
+    // Add one dot in the legend for each name.
+    legend
+      .selectAll("mylabels")
+      .data(measures)
+      .enter()
+      .append("text")
+      .attr("x", width - 32)
+      .attr("y", (d, i) => 0 + i * 20) // 102 is where the first dot appears. 20 is the distance between dots
+      .style("fill", (d) => "black")
+      .text((d) => d)
+      .attr("text-anchor", "left")
+      .style("alignment-baseline", "middle");
+
+    var legendWidth = document
+      .querySelector("#" + elementId + " .legend")
+      .getBoundingClientRect().width;
+    rescale(legendWidth);
+  }
 }
