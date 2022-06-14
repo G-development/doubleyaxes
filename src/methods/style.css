@@ -1,3 +1,8 @@
 .tick {
   font-family: "QlikView Sans";
 }
+
+.domain,
+.tick line {
+  color: #d9d9d9;
+}
